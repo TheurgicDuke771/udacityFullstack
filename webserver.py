@@ -30,6 +30,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                     output += '<br /><br />'
                 output += '</body></html>'
                 self.wfile.write(output.encode())
+                session.close()
                 return
 
             elif self.path.endswith('/restaurant/new'):
@@ -61,6 +62,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                     output += '''<form method="POST" enctype="multipart/form-data" action="edit"><h4>Edit restaurant name:</h4><input name="restaurantName" type = "text"><input type = "submit" value = "Change"></form>'''
                     output += '</body></html>'
                     self.wfile.write(output.encode())
+                session.close()
                 return
 
             elif self.path.endswith('/delete'):
@@ -79,6 +81,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                     output += '''<form method="POST" enctype="multipart/form-data" action="delete"><h4>By pressing confirm this restaurant will be permanently removed from the database. </h4><button type="submit" name="confirm" value="True">Confirm</button>'''
                     output += '</body></html>'
                     self.wfile.write(output.encode())
+                session.close()
                 return
 
             else:
@@ -122,6 +125,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                     self.send_header('Content-type', 'text/html')
                     self.send_header('Location', '/restaurant')
                     self.end_headers()
+                    session.close()
                 return
 
             elif self.path.endswith('/edit'):
@@ -144,6 +148,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                     self.send_header('Content-type', 'text/html')
                     self.send_header('Location', '/restaurant')
                     self.end_headers()
+                    session.close()
 
             elif self.path.endswith('/delete'):
                 restaurant = session.query(Restaurant).filter_by(id=self.path.split('/')[2]).one()
@@ -155,6 +160,7 @@ class webServerHandler(BaseHTTPRequestHandler):
                     self.send_header('Content-type', 'text/html')
                     self.send_header('Location', '/restaurant')
                     self.end_headers()
+                    session.close()
 
             else:
                 self.send_response(301)
