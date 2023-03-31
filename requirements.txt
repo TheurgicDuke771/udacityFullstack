@@ -24,7 +24,7 @@ pylint==2.5.2
 pylint-flask==0.6
 pylint-plugin-utils==0.6
 pyparsing==2.4.7
-redis==4.5.3
+redis==4.5.4
 requests==2.23.0
 rsa==4.7
 six==1.14.0
